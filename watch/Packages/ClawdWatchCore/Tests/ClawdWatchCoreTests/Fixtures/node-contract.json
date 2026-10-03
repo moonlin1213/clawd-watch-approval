@@ -1,0 +1,22 @@
+{
+  "approvals": [
+    {
+      "id": "12345678-1234-4234-8234-123456789abc",
+      "revision": "6b7a9a18f8a431495ebcdddbf1eaa71bd66e46e55ec97a3a0f067137dfa96d1d",
+      "agentId": "kimi-cli",
+      "sessionLabel": "fixture",
+      "projectLabel": "",
+      "toolName": "Bash",
+      "details": "{\n  \"command\": \"pwd\"\n}",
+      "createdAtMs": 1000,
+      "expiresAtMs": 301000,
+      "canDecide": true
+    }
+  ],
+  "operation": {
+    "operationId": "87654321-1234-4234-8234-123456789abc",
+    "requestId": "12345678-1234-4234-8234-123456789abc",
+    "decision": "deny",
+    "status": "delivered"
+  }
+}

@@ -1,0 +1,1 @@
+../../../../../ClaudeWatch watchOS/Services/WatchBridgeClient.swift

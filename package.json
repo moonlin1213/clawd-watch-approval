@@ -1,0 +1,9 @@
+{
+  "name": "clawd-watch-approval",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

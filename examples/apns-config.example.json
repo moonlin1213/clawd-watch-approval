@@ -1,0 +1,6 @@
+{
+  "teamId": "YOUR_TEAM_ID",
+  "keyId": "YOUR_KEY_ID",
+  "privateKeyPath": "/absolute/path/to/AuthKey_YOUR_KEY_ID.p8",
+  "topic": "org.example.clawdwatch.watchapp"
+}

@@ -1,0 +1,15 @@
+build/
+node_modules/
+**/.build/
+**/xcuserdata/
+.DS_Store
+__pycache__/
+*.log
+.env
+.env.*
+*.p8
+*.p12
+*.mobileprovision
+apns-config.json
+watch-approval.json
+Local.xcconfig

@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh"><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'">
+<title>Clawd Watch</title><style>body{font:15px -apple-system,sans-serif;background:#191c21;color:#f5f5f5;margin:28px;line-height:1.6}input[type=url]{width:95%;padding:10px;background:#292d34;color:white;border:1px solid #666;border-radius:8px}button{padding:9px 16px;margin:8px 8px 8px 0;border:0;border-radius:8px;cursor:pointer;background:#e48c58;color:#151515}#code{font:36px monospace;letter-spacing:7px}#message{color:#f8bca3;white-space:pre-wrap}.device{font:12px monospace;overflow-wrap:anywhere}</style>
+<h1>Clawd Watch</h1><p>手表直接连接家中的 Mac，统一审批 Codex、Claude Code、DSH 和 Kimi。</p>
+<label>HTTPS 审批地址<input id="url" type="url" placeholder="https://你的域名/api/clawd-watch/v1"></label>
+<p><label><input id="enabled" type="checkbox"> 开启手表审批</label></p>
+<button id="save">保存设置</button><button id="pair">生成配对码</button>
+<div id="code"></div><p id="expiry"></p><p id="message" role="status"></p><div id="devices"></div>
+<script src="watch-approval-pairing-renderer.js"></script></html>
