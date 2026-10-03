@@ -25,6 +25,22 @@ flowchart LR
     APNs --> Watch
 ```
 
+## 交给你的 coding agent 安装
+
+可以把仓库地址发给自己的 coding agent，让它阅读本 README 并逐步完成安装。无需预先装好桌宠；agent 应先检查现状，再选择下面的路线。
+
+| 当前情况 | 安装路线 |
+| --- | --- |
+| 没有 Clawd on Desk | 按“准备兼容的桌宠源码”获取固定版本、应用补丁，然后接入用户选用的 agent |
+| 已有桌宠，但没配置 agent | 先检查版本及文件是否有修改；使用兼容副本，并按“接入需要的 agent”完成审批连接 |
+| 已有桌宠和正常审批 | 检查补丁兼容性，保留原有配置，继续 HTTPS、Watch 签名、APNs 和配对步骤 |
+
+可以直接复制这段请求：
+
+> 请阅读 https://github.com/moonlin1213/clawd-watch-approval 的 README，帮我逐步安装。先只读检查我的 macOS、依赖、现有 Clawd on Desk、正在使用的 agent、Xcode/Apple Developer 和网络配置；缺少必要选择时再问我。只接入我选择的 agent，保留现有 hooks、配置和运行数据；版本不匹配时使用独立兼容副本，不强行覆盖。先验证桌宠能收到真实审批，再配置 HTTPS、Watch 和 APNs。涉及账户登录、协议、开发者后台配置或手表上的授权时，说明具体动作并按所用工具的批准规则交给我操作。私钥只在本机引用，不打印或上传。完成后分别报告哪些步骤已验证、哪些需要我在手表上验收。
+
+agent 可以处理源码、依赖、补丁、测试和构建。用户仍可能需要完成 Apple/Tailscale 登录、Apple 协议及开发者权限确认、手表解锁与通知授权，以及最终的实机观察。没有 Apple Developer/APNs 条件时，应明确说明后台提醒尚未完成，不以模拟器或前台读取代替后台验收。
+
 ## 快速开始
 
 需要 macOS、Node.js、Python 3、Git、支持 watchOS 10+ 的 Xcode 和 Apple Watch。实机后台 APNs 需要自己的 Apple Developer 团队、App ID、推送权限和签名配置。此仓库提供源码，没有预签名安装包。
@@ -50,7 +66,28 @@ npm ci
 npm start
 ```
 
-进入桌宠设置的“手表审批”，配置自己的 HTTPS 地址并开启服务。网关默认监听 `127.0.0.1:23940`，前缀为 `/api/clawd-watch/v1`。
+已有桌宠的用户：先记录当前版本、源码修改和启动方式，并保留备份；不要把不匹配的文件强行改到安装器能通过。运行中的桌宠需要在最终切换时停止旧实例，再启动兼容副本，避免两个实例同时写同一份 userData。上述克隆与补丁步骤只准备源码，不会自动替换正在运行的桌宠。
+
+### 1.1 接入需要的 agent
+
+只接入用户实际使用的 agent。本手表审批入口当前支持下面四种；桌宠支持的其他 agent 不会因此自动获得手表审批。
+
+在桌宠 Settings 的 Agents 设置中，启用所选 agent 及其审批气泡；开启全局审批气泡，并关闭会屏蔽审批的桌宠 DND。Codex 的权限模式需要允许拦截真实审批。保留用户原有 hooks，不要重写整个配置文件，也不要启用绕过审批的模式来代替接入。
+
+下列手动 hook 命令在**已应用补丁的桌宠源码目录**执行。正常启动会同步已启用的集成；只有缺失或需要修复时才手动运行。
+
+| Agent | 桌宠接入方式 | 检查点 |
+| --- | --- | --- |
+| Claude Code | 启动时同步 hooks；必要时运行 `npm run install:claude-hooks` | 确认 Claude Code 已安装并可正常使用，新的权限请求能弹出桌宠审批卡 |
+| Codex | 启动时同步 official hooks；必要时运行 `npm run install:codex-hooks` | 确认 hooks 已启用；如果 Codex 提示需要 review，按其提示激活，再验证真实审批 |
+| Kimi Code CLI | 启动时同步 hooks；必要时运行 `npm run install:kimi-hooks` | 安装器优先使用已有的 `~/.kimi-code/config.toml`，回退到 `~/.kimi/config.toml`；确认权限请求能弹出审批卡 |
+| DeepSeek Harness | 运行 DSH 桌面应用，桌宠自动发现本地服务并连接 | 确认能收到 DSH 的真实审批请求；本集成不向 DSH 安装 hooks |
+
+各 agent 本身未安装或尚未登录时，由用户选择要使用的 agent，再根据对应项目的官方说明完成安装和登录。补充说明见 [桌宠接入指南](desktop-patch/docs/guides/setup-guide.zh-CN.md)；手表支持范围以上表和当前源码为准。
+
+**先验证桌宠审批，再继续手表配置：** 在用户选用的 agent 中发起一条只打印测试文字的命令，确保它确实需要批准。确认桌宠收到对应命令的审批卡，允许后核对命令输出；再用新的测试请求检查拒绝后命令没有执行。仅看到桌宠动画、状态或通知不算审批接入成功。测试也不要给 agent 永久放行权限。
+
+回到本仓库根目录进行后续网络及 Watch 步骤。在桌宠“手表审批”设置中开启服务、填写下一步准备的完整 HTTPS 地址，再生成配对码。网关默认监听 `127.0.0.1:23940`，前缀为 `/api/clawd-watch/v1`。
 
 ### 2. 提供 HTTPS 网络入口
 
