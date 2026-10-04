@@ -19,8 +19,11 @@ card = {
     "agentId": "codex", "sessionLabel": "布局验证", "projectLabel": "长内容测试",
     "toolName": "Bash", "createdAtMs": 1000, "expiresAtMs": 9999999999999,
     "canDecide": True, "details": "\n".join(
-        [f"第 {i:02} 行：审批内容可以独立滚动。" for i in range(1, 41)] + ["内容末尾：固定按钮仍应可见"])
+        [f"第 {i:02} 行：审批内容可以完整阅读。" for i in range(1, 41)] + ["内容末尾：固定按钮仍应可见"])
 }
+if "--notification" in sys.argv:
+    card["details"] = json.dumps({"command": "printf 'Hello Watch\\n'\n" + "\n".join(
+        f"# 第 {i:02} 行：长命令翻页测试" for i in range(1, 21)), "cwd": "/tmp/demo", "timeout": 1000}, ensure_ascii=False, indent=2)
 literal = json.dumps(json.dumps(card, ensure_ascii=False), ensure_ascii=False)
 entry = '''@main
 struct ClaudeWatchWatchApp: App {

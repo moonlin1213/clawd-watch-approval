@@ -11,7 +11,7 @@ Standalone Apple Watch approvals for Codex, Claude Code, DeepSeek Harness and Ki
 - Codex、Claude Code、DeepSeek Harness（DSH）、Kimi 审批接入。
 - Watch-only App；联网后直接连接 Mac，不依赖 iPhone 作为审批中继。
 - App 内审批详情可滚动，允许和拒绝圆按钮固定在底部。
-- 抬腕通知可以直接显示详情和审批按钮。系统通知及专注模式设置会影响展示。
+- 抬腕通知可以直接显示命令和审批按钮。长内容点详情区右半边翻到下一页、左半边返回，页码显示阅读进度；允许和拒绝圆按钮分列两侧。系统通知及专注模式设置会影响展示。
 - 每台设备独立配对凭据，手表凭据保存在 Keychain；请求有版本和过期时间。
 - 决定有 operation ID 和交付回执；响应丢失后查询同一决定，避免重复提交。
 - 推送仅带通用提示、请求 ID 和版本；命令详情通过鉴权连接读取。
@@ -134,7 +134,7 @@ cd build/clawd-on-desk
 npm test
 ```
 
-已在 Apple Watch 实机验证配对、Codex 审批回执、抬腕显示审批按钮和配色；真实 Claude 单次 Bash 测试也成功执行。四种 agent 的完整允许/拒绝矩阵、通知内长内容滚动及手机关闭后的纯蜂窝全过程仍需分别验收。模拟器截图使用离线样例，不包含真实审批内容。
+已在 Apple Watch 实机验证配对、Codex 审批回执、抬腕显示审批按钮和配色；真实 Claude 单次 Bash 测试也成功执行。四种 agent 的完整允许/拒绝矩阵、通知内长内容点按翻页已在 40mm 模拟器系统通知中检查首、中、末页和返回，实机阅读手感及手机关闭后的纯蜂窝全过程仍需分别验收。模拟器截图使用离线样例，不包含真实审批内容。
 
 ## 隐私与安全
 
