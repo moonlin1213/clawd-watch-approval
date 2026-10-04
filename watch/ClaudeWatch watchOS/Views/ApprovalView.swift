@@ -31,7 +31,7 @@ struct ApprovalView: View {
                             + "\n\n项目 / 会话\n" + (card.projectLabel.isEmpty ? card.sessionLabel : card.projectLabel))
                             .id(card.id + ":" + card.revision)
                     }
-                }.frame(width: geometry.size.width, height: max(0, geometry.size.height - 48))
+                }.frame(width: geometry.size.width, height: max(0, geometry.size.height - 52))
                  .frame(maxHeight: .infinity, alignment: .top)
             } else {
             ScrollView {
@@ -59,7 +59,8 @@ struct ApprovalView: View {
                 decisionButton("拒绝", decision: .deny, color: Theme.DecisionButton.deny)
             }
             .padding(.horizontal, 3)
-            .padding(.vertical, 2)
+            .padding(.top, compactNotification ? 6 : 2)
+            .padding(.bottom, 2)
             .frame(maxWidth: .infinity)
             .background(.black)
           }.frame(width: geometry.size.width, height: geometry.size.height)
@@ -161,7 +162,7 @@ struct ApprovalNotificationView: View {
             }
           }
         }
-        .frame(height: 116)
+        .frame(height: 120)
         .task(id: requestID) { await load() }
     }
     @MainActor private func load() async {
